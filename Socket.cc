@@ -67,7 +67,7 @@ int Socket::recv(void *buffer, unsigned bufSize,  bool peek) const {
     return rc;
 }
       
-int Socket::send(void *buffer, unsigned bufSize) const {
+int Socket::send(const void *buffer, unsigned bufSize) const {
     int rc = ::send(sockHandle, (char*)buffer, bufSize, 0);
     if (rc == -1)
         throw SockException(SockException::send, errno);
@@ -87,6 +87,18 @@ void Socket::bind(int portNum) const {
 void Socket::listen(int maxConnects) const {
     if (::listen(sockHandle, maxConnects))
         throw SockException(SockException::listen,  errno);
+}
+
+void Socket::setSockOpt(int level, int optname, void *optval, 
+                        socklen_t optlen
+                        ) {
+    if (::setsockopt(sockHandle, level, optname, optval, optlen))
+        throw SockException(SockException::setsockopt, errno);
+}
+
+void Socket::setReusable(bool reusable) {
+    int optval = reusable;
+    setSockOpt(SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
 }
 
 int Socket::getPort() const {

@@ -141,7 +141,7 @@ class Socket {
          * when it is possible to use the stream interface.  (return values
          * are undefined)
          */
-        int send(void *buffer, unsigned bufSize) const;
+        int send(const void *buffer, unsigned bufSize) const;
   
         /**
          * Low-level bind call - binds the socket to the port.  This
@@ -162,6 +162,19 @@ class Socket {
          * parameter.
          */
         void listen(int maxConnects = defaultMaxConnects) const;
+        
+        /**
+         * Low-level "setsockopt" call.  You're better off using the 
+         * high-level functions when possible.
+         */
+        void setSockOpt(int level, int optname, void *optval, 
+                        socklen_t optlen
+                        );
+
+        /**
+         * Make a listen socket reusable.
+         */        
+        void setReusable(bool reusable);
         
         /**
          * Provides external access to the low-level socket handle.
