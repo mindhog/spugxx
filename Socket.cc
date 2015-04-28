@@ -67,7 +67,7 @@ int Socket::recv(void *buffer, unsigned bufSize,  bool peek) const {
     return rc;
 }
       
-int Socket::send(void *buffer, unsigned bufSize) const {
+int Socket::send(const void *buffer, unsigned bufSize) const {
     int rc = ::send(sockHandle, (char*)buffer, bufSize, 0);
     if (rc == -1)
         throw SockException(SockException::send, errno);

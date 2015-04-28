@@ -22,8 +22,8 @@
 #ifndef SPUG_SOCKEXCEPTION_H
 #define SPUG_SOCKEXCEPTION_H
 
-#include <Exception.h>
-#include <String.h>
+#include "Exception.h"
+#include "String.h"
 
 namespace spug {
 
