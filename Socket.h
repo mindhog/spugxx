@@ -164,6 +164,19 @@ class Socket {
         void listen(int maxConnects = defaultMaxConnects) const;
         
         /**
+         * Low-level "setsockopt" call.  You're better off using the 
+         * high-level functions when possible.
+         */
+        void setSockOpt(int level, int optname, void *optval, 
+                        socklen_t optlen
+                        );
+
+        /**
+         * Make a listen socket reusable.
+         */        
+        void setReusable(bool reusable);
+        
+        /**
          * Provides external access to the low-level socket handle.
          */
         int handle() const {

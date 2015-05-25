@@ -89,6 +89,18 @@ void Socket::listen(int maxConnects) const {
         throw SockException(SockException::listen,  errno);
 }
 
+void Socket::setSockOpt(int level, int optname, void *optval, 
+                        socklen_t optlen
+                        ) {
+    if (::setsockopt(sockHandle, level, optname, optval, optlen))
+        throw SockException(SockException::setsockopt, errno);
+}
+
+void Socket::setReusable(bool reusable) {
+    int optval = reusable;
+    setSockOpt(SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
+}
+
 int Socket::getPort() const {
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);

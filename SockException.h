@@ -35,7 +35,7 @@ class SockException : public Exception {
    
    public:
        enum Action { open, connect, bind, send, recv, close, accept, listen,
-                     gethostbyname,  select };
+                     gethostbyname,  select, setsockopt };
        enum SpecialError { unknownAddressFamily = 1000,  undefinedHost };
    
    private:
